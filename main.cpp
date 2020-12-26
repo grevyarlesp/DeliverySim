@@ -6,7 +6,6 @@
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-    a.setDesktopSettingsAware(false);
     MainWindow w;
     /* GraphWidget *graphWidget = new GraphWidget; */
     /* w.setCentralWidget(graphWidget); */
