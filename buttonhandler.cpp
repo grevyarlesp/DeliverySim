@@ -24,5 +24,6 @@ void ButtonHandler::draw(QTextEdit* textEdit, GraphWidget* graphWidget) {
         graphWidget->addEdge(a[0], a[1], a[2]);
     }
     /* graphWidget->addEdge(1, 2, 3); */
+    graphWidget->draw();
 
 }

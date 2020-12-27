@@ -47,8 +47,9 @@ public:
     explicit GraphWidget(QWidget *parent = nullptr);
     void itemMoved();
     Node* addNode(int num);
+    Graph* graph;
     void addEdge(int u, int v, int w);
-
+    void draw();
     void clear();
 public slots: 
     void shuffle();

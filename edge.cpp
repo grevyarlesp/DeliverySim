@@ -1,10 +1,13 @@
 #include "edge.h"
 
-Edge::Edge(Node *sourceNode, Node *destNode, int w) : source(sourceNode), dest(destNode) {
+Edge::Edge(int iSource, int iDest, Node *sourceNode, Node *destNode, Graph* graph, int w) : source(sourceNode), dest(destNode) {
+    this->iSource = iSource;
+    this->iDest = iDest;
     setAcceptedMouseButtons(Qt::NoButton);
     source->addEdge(this);
     dest->addEdge(this);
     label = QString::number(w);
+    this->graph = graph;
     adjust();
 }
 
@@ -67,17 +70,24 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
     QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + M_PI / 3) * arrowSize,
                                                   cos(angle + M_PI / 3) * arrowSize);
+
     QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + M_PI - M_PI / 3) * arrowSize,
                                                   cos(angle + M_PI - M_PI / 3) * arrowSize);
+
     QPointF destArrowP1 = destPoint + QPointF(sin(angle - M_PI / 3) * arrowSize,
                                               cos(angle - M_PI / 3) * arrowSize);
+    
     QPointF destArrowP2 = destPoint + QPointF(sin(angle - M_PI + M_PI / 3) * arrowSize,
                                               cos(angle - M_PI + M_PI / 3) * arrowSize);
 
     QPointF mid = (sourcePoint + destPoint) / 2;
+
     painter->setBrush(Qt::black);
+
+    // Screen space is precious
     painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
-    painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+    if (graph->checkEdge(iDest, iSource))
+        painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 
     painter->drawText(mid, label);
 }

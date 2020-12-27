@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupMenuBar(parent);
 
     connect(drawButton, &QPushButton::released, this, &MainWindow::handleButton);
+    graphWidget->draw();
 }
 
 void MainWindow::setupMenuBar(QWidget *parent) {
@@ -62,5 +63,4 @@ MainWindow::~MainWindow()
 
 void MainWindow::handleButton() {
     buttonHandler->draw(textEdit, graphWidget);
-    
 }

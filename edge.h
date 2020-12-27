@@ -34,6 +34,7 @@
 #include <QLine>
 #include <QLineF>
 #include <QtMath>
+#include "graph.h"
 #include <QGraphicsItem>
 #include <QPainter>
 #include "node.h"
@@ -42,10 +43,10 @@
 class Node;
 class Edge : public QGraphicsItem {
 public:
-    Edge(Node *sourceNode, Node *destNode, int w);
-
+    Edge(int iSource, int iDest, Node *sourceNode, Node *destNode, Graph* graph, int w);
     Node *sourceNode() const;
     Node *destNode() const;
+    Graph* graph;
     QString label;
 
     void adjust();
@@ -59,6 +60,7 @@ protected:
 
 private:
     Node *source, *dest;
+    int iSource, iDest;
     QPointF sourcePoint;
     QPointF destPoint;
     qreal arrowSize = 10;

@@ -60,6 +60,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
+    static qreal minLength;
     QVector<Edge *> edgeList;
     QPointF newPos;
     GraphWidget *graph;

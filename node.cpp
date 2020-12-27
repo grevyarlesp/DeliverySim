@@ -1,5 +1,7 @@
 #include "node.h"
 
+qreal Node::minLength = 900;
+
 Node::Node(GraphWidget *graphWidget) : graph(graphWidget) {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -39,8 +41,8 @@ void Node::calculateForces()
         qreal dy = vec.y();
         double l = 2.0 * (dx * dx + dy * dy);
         if (l > 0) {
-            xvel += (dx * 150.0) / l;
-            yvel += (dy * 150.0) / l;
+            xvel += (dx * minLength) / l;
+            yvel += (dy * minLength) / l;
         }
     }
     // Now subtract all forces pulling items together
