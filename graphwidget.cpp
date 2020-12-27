@@ -71,7 +71,6 @@ GraphWidget::GraphWidget(QWidget *parent)
     /* node8->setPos(0, 50); */
     /* node9->setPos(50, 50); */
     /* node10->setPos(60, 60); */
-    /* view.fitInView(scene, Qt::IgnoreAspectRatio); */
 }
 
 void GraphWidget::itemMoved()
@@ -113,7 +112,6 @@ void GraphWidget::keyPressEvent(QKeyEvent *event)
 }
 
 void GraphWidget::resizeEvent(QResizeEvent* event) {
-
     //this->
     scene()->setSceneRect(-200, -200, this->width(), this->height());
     qDebug() << par->width() << par->height();

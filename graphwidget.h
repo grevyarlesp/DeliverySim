@@ -33,6 +33,7 @@
 #include "edge.h"
 #include <QRandomGenerator>
 #include <QWheelEvent>
+#include "graph.h"
 
 
 /* Circular Dependecy; Foward declaration */

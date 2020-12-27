@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     buttonhandler.cpp \
     edge.cpp \
+    graph.cpp \
     graphwidget.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     buttonhandler.h \
     edge.h \
+    graph.h \
     graphwidget.h \
     mainwindow.h \
     node.h
