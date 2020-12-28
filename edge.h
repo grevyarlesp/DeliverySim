@@ -64,6 +64,7 @@ private:
     QPointF sourcePoint;
     QPointF destPoint;
     qreal arrowSize = 10;
+    static qreal height, Pi;
 };
 
 #endif // EDGE_H

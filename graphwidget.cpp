@@ -71,6 +71,7 @@ void GraphWidget::resizeEvent(QResizeEvent* event) {
     //this->
     scene()->setSceneRect(-200, -200, this->width(), this->height());
     qDebug() << par->width() << par->height();
+    update();
 
 }
 
@@ -176,8 +177,7 @@ void GraphWidget::draw() {
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= n; ++j) {
             if (i == j) continue;
-            if (graph->checkEdge(i, j) && (! graph->checkEdge(j, i) || (graph->checkEdge(j, i) && j > i)))
-                // Add only once
+            if (graph->checkEdge(i, j))
                 scene()->addItem(new Edge(i, j, addNode(i), addNode(j), graph, graph->getWeight(i, j)));
         }
     }

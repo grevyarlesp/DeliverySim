@@ -19,11 +19,10 @@ void Graph::clear() {
 
 void Graph::addEdge(int u, int v, int c) {
     g[u].push_back(qMakePair(v, c));
-    mg[u][v] = c;
-    if (mg[u][v] && mg[v][u]) {
-        mg[u][v] = min(mg[u][v], mg[v][u]);
-        mg[v][u] = mg[u][v];
-    }
+    if (mg[u][v]) {
+        mg[u][v] = min(mg[u][v], c);
+    } else 
+        mg[u][v] = c;
 }
 
 bool Graph::checkEdge(int u, int v) {

@@ -15,6 +15,7 @@ SOURCES += \
     graphwidget.cpp \
     main.cpp \
     mainwindow.cpp \
+    matching.cpp \
     node.cpp
 
 HEADERS += \
@@ -23,6 +24,7 @@ HEADERS += \
     graph.h \
     graphwidget.h \
     mainwindow.h \
+    matching.h \
     node.h
 
 

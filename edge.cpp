@@ -1,5 +1,8 @@
 #include "edge.h"
 
+qreal Edge::height = 10.0;
+qreal Edge::Pi = acos(-1.0);
+
 Edge::Edge(int iSource, int iDest, Node *sourceNode, Node *destNode, Graph* graph, int w) : source(sourceNode), dest(destNode) {
     this->iSource = iSource;
     this->iDest = iDest;
@@ -28,7 +31,6 @@ void Edge::adjust()
 
     QLineF line(mapFromItem(source, qreal(0.), qreal(0.)), mapFromItem(dest, 0, 0));
     qreal length = line.length();
-
     prepareGeometryChange();
 
     if (length > qreal(20.)) {
@@ -38,6 +40,7 @@ void Edge::adjust()
     } else {
         sourcePoint = destPoint = line.p1();
     }
+
 }
 
 QRectF Edge::boundingRect() const
@@ -59,14 +62,31 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     if (!source || !dest)
         return;
 
-    QLineF line(sourcePoint, destPoint);
-    if (qFuzzyCompare(line.length(), qreal(0.)))
+    qreal dX = destPoint.rx() - sourcePoint.rx();
+    qreal dY = destPoint.ry() - sourcePoint.ry();
+    qreal distance = sqrt(dX * dX + dY * dY);
+
+    QLineF newLine(sourcePoint, destPoint);
+
+    /* newLine.setLength(newLine.length() - 18); */
+    /* Midpoint coordinate */
+    QPointF mid = (sourcePoint + destPoint) / 2;
+
+    /* Control point coordinate */ 
+
+    qreal cX = height * (-1 * (dY / distance)) + mid.rx();
+    qreal cY = height * (dX / distance) + mid.ry();
+    QPointF controlPoint = QPointF(cX, cY);
+
+
+    if (qFuzzyCompare(newLine.length(), qreal(0.)))
         return;
     // Draw the line itself
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    painter->drawLine(line);
+
+    /* painter->drawLine(newLine); */
     // Draw the arrows
-    double angle = std::atan2(-line.dy(), line.dx());
+    double angle = std::atan2(-newLine.dy(), newLine.dx());
 
     QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + M_PI / 3) * arrowSize,
                                                   cos(angle + M_PI / 3) * arrowSize);
@@ -74,20 +94,11 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + M_PI - M_PI / 3) * arrowSize,
                                                   cos(angle + M_PI - M_PI / 3) * arrowSize);
 
-    QPointF destArrowP1 = destPoint + QPointF(sin(angle - M_PI / 3) * arrowSize,
-                                              cos(angle - M_PI / 3) * arrowSize);
-    
-    QPointF destArrowP2 = destPoint + QPointF(sin(angle - M_PI + M_PI / 3) * arrowSize,
-                                              cos(angle - M_PI + M_PI / 3) * arrowSize);
 
-    QPointF mid = (sourcePoint + destPoint) / 2;
+    painter->setBrush(Qt::blue);
+    painter->drawPolygon(QPolygonF() << newLine.p1() << sourceArrowP1 << sourceArrowP2);
 
-    painter->setBrush(Qt::black);
+    painter->drawText(controlPoint, label);
 
-    // Screen space is precious
-    painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
-    if (graph->checkEdge(iDest, iSource))
-        painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
-
-    painter->drawText(mid, label);
+    painter->drawLine(newLine);
 }

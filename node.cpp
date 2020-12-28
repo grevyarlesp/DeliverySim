@@ -65,8 +65,7 @@ void Node::calculateForces()
 }
 
 /* Update current position */ 
-bool Node::advancePosition()
-{
+bool Node::advancePosition() {
     if (newPos == pos())
         return false;
 
@@ -74,8 +73,7 @@ bool Node::advancePosition()
     return true;
 }
 
-QRectF Node::boundingRect() const
-{
+QRectF Node::boundingRect() const {
     qreal adjust = 2;
     return QRectF( -10 - adjust, -10 - adjust, 23 + adjust, 23 + adjust);
 }
