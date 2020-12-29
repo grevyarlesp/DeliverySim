@@ -14,9 +14,8 @@ GraphWidget::GraphWidget(QWidget *parent)
     /* scene->setSceneRect(0, 0, this->size().width(), this->size().height()); */
     /* qDebug() << this->size().width() << ' ' << this->size().height() <<'\n'; */
     /* qDebug() << this->rect().topLeft().rx() << ' ' << this->rect().topLeft().ry(); */
-    
-    qDebug() << parent->width() << ' '  << parent->height() << '\n';
 
+    setMinimumSize(1000, 600);
     scene->setSceneRect(-200, -200, this->width(), this->height());
     setScene(scene);
     setCacheMode(CacheBackground);
@@ -24,7 +23,6 @@ GraphWidget::GraphWidget(QWidget *parent)
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(0.8), qreal(0.8));
-    setMinimumSize(1000, 600);
     QSizePolicy policy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     setSizePolicy(policy);
 }
@@ -69,9 +67,9 @@ void GraphWidget::keyPressEvent(QKeyEvent *event)
 
 void GraphWidget::resizeEvent(QResizeEvent* event) {
     //this->
+    return;
     scene()->setSceneRect(-200, -200, this->width(), this->height());
     qDebug() << par->width() << par->height();
-    update();
 
 }
 
@@ -168,7 +166,7 @@ Node* GraphWidget::addNode(int num) {
 
 
 void GraphWidget::addEdge(int u, int v, int w) {
-    if (u == w) return;
+    if (u == v) return;
     graph->addEdge(u, v, w);
 }
 

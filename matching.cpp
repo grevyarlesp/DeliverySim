@@ -1,6 +1,5 @@
 #include "matching.h"
 
-Matching::Matching()
-{
+Matching::Matching() {
 
 }

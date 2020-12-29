@@ -16,8 +16,7 @@ void Node::addEdge(Edge *edge) {
 }
 
 /* Return a list of attached edges */
-QVector<Edge *> Node::edges() const
-{
+QVector<Edge *> Node::edges() const {
     return edgeList;
 }
 
@@ -106,13 +105,10 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
     QFont font = painter->font();
     font.setBold(true);
-    font.setPixelSize(50);
+    font.setPixelSize(100);
 
-      const QRect rectangle = QRect(-7, -7, 100, 50);
-      painter->drawText(rectangle, 0, label);
-    /* painter->setFont(font); */
-    /* painter->setPen(Qt::black); */
-    /* painter->drawText(-10, -10, "Hi there"); */
+    const QRect rectangle = QRect(-7, -7, 100, 100);
+    painter->drawText(rectangle, 0, label);
 }
 
 void Node::setLabel(QString label) {
