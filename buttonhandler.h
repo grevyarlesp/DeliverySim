@@ -5,13 +5,13 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include "graphwidget.h"
+#include "shortestpath.h"
 
-class ButtonHandler : public QObject
-{
+class ButtonHandler {
 public:
     ButtonHandler();
-public: 
     void draw(QTextEdit* textEdit, GraphWidget* graphWidget);
+    void calculatePath(QTextEdit* textEdit, GraphWidget* graphWidget);
 };
 
 #endif // BUTTONHANDLER_H

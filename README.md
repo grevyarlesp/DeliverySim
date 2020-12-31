@@ -4,10 +4,10 @@
 
 # Features and TODO list: 
 
-- [ ] Dijkstra algorithm to find the shortest path between 2 nodes.
-- [ ] A modified Hungarian algorithm to find the minimum matching.
+- [x] Dijkstra algorithm to find the shortest path between 2 nodes.
+- [ ] A modified Hungarian algorithm to find the minimum cost maxmium matching.
 - [ ] (Probably) A* algorithm.
 
-# Screennshots: 
+# Screenshots: 
 
 To be updated ...

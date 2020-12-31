@@ -16,7 +16,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     matching.cpp \
-    node.cpp
+    node.cpp \
+    shortestpath.cpp
 
 HEADERS += \
     buttonhandler.h \
@@ -25,7 +26,8 @@ HEADERS += \
     graphwidget.h \
     mainwindow.h \
     matching.h \
-    node.h
+    node.h \
+    shortestpath.h
 
 
 FORMS += \

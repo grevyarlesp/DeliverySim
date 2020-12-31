@@ -6,6 +6,9 @@ GraphWidget::GraphWidget(QWidget *parent)
 {
     /* Support 1000 edges */
     graph = new Graph(1000);
+    e = QVector< QVector<Edge*> >(1001, QVector<Edge*>(1001));
+    allow = QVector<QVector<int> >(1001, QVector<int>(1001, 0));
+
     QGraphicsScene* scene = new QGraphicsScene(parent);
     par = parent;
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -165,9 +168,9 @@ Node* GraphWidget::addNode(int num) {
 }
 
 
-void GraphWidget::addEdge(int u, int v, int w) {
+void GraphWidget::addEdge(int u, int v, int w, int allow) {
     if (u == v) return;
-    graph->addEdge(u, v, w);
+    graph->addEdge(u, v, w, allow);
 }
 
 void GraphWidget::draw() {
@@ -175,8 +178,18 @@ void GraphWidget::draw() {
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= n; ++j) {
             if (i == j) continue;
-            if (graph->checkEdge(i, j))
-                scene()->addItem(new Edge(i, j, addNode(i), addNode(j), graph, graph->getWeight(i, j)));
+            if (graph->checkEdge(i, j)) {
+                Edge* ed = new Edge(i, j, addNode(i), addNode(j), graph, graph->getWeight(i, j));
+                scene()->addItem(ed);
+                e[i][j] = ed;
+                if (graph->getAllow(i, j) == 1) {
+                    ed->setColor(Qt::blue);
+                }
+                
+                if (graph->getAllow(i, j) == 2) {
+                    ed->setColor(Qt::darkGreen);
+                }
+            }
         }
     }
 }
@@ -185,5 +198,31 @@ void GraphWidget::clear() {
     scene()->clear();
     nodeMap.clear();
     graph->clear();
+}
 
+void GraphWidget::resetColor() {
+    int n = graph->getN();
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            if (i == j) continue;
+            if (e[i][j] != NULL) {
+                if (graph->getAllow(i, j) == 1) {
+                    e[i][j]->setColor(Qt::blue);
+                } else
+                if (graph->getAllow(i, j) == 2) {
+                    e[i][j]->setColor(Qt::darkGreen);
+                } else 
+                    e[i][j]->setColor(Qt::black);
+            }
+        }
+    }
+
+}
+
+Edge* GraphWidget::getEdge(int i, int j) {
+    return e[i][j];
+}
+
+Graph* GraphWidget::getGraph() {
+    return graph;
 }

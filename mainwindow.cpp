@@ -23,23 +23,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     textEdit = new QTextEdit(widget2);
     drawButton = new QPushButton("Draw", widget2);
+    requestEdit = new QTextEdit(widget2);
+    calculateButton = new QPushButton("Calculate", widget2);
     subLayout->addWidget(textEdit);
     subLayout->addWidget(drawButton);
-
-
+    subLayout->addWidget(requestEdit);
+    subLayout->addWidget(calculateButton);
     layout->addWidget(widget2, 2);
     layout->addWidget(graphWidget, 8);
+
     /* layout->addWidget(widget2, 8); */
     widget->setLayout(layout);
     widget2->setLayout(subLayout);
-    graphWidget->addEdge(2, 3, 4);
-    graphWidget->addEdge(1, 3, 4);
-    graphWidget->addEdge(1, 4, 4);
-    graphWidget->addEdge(2, 4, 4);
 
     setupMenuBar(parent);
 
     connect(drawButton, &QPushButton::released, this, &MainWindow::handleButton);
+    connect(calculateButton, &QPushButton::released, this, &MainWindow::handleCalculateButton);
     graphWidget->draw();
 }
 
@@ -47,13 +47,12 @@ void MainWindow::setupMenuBar(QWidget *parent) {
     QMenuBar *menuBar = new QMenuBar(parent);
     this->setMenuBar(menuBar);
     QMenu * fileMenu = this->menuBar()->addMenu(tr("&File"));
-    fileMenu->addAction(new QAction("Import graph from street.txt"));
-    /* fileMenu->addAction(newAct); */
-}
-
-void MainWindow::setupLeftWidget(QWidget *parent) {
-    /* lineEdit = new QLineEdit(parent); */
-    textEdit = new QTextEdit(parent);
+    QAction* importAction = new QAction("Import graph from street.txt and transport_type.txt");
+    QAction* requestAction = new QAction("Import query from query.txt");
+    fileMenu->addAction(importAction);
+    fileMenu->addAction(requestAction);
+    connect(importAction, &QAction::triggered, this, &MainWindow::importActionTrigger);
+    connect(requestAction, &QAction::triggered, this, &MainWindow::requestActionTrigger);
 }
 
 MainWindow::~MainWindow()
@@ -63,4 +62,47 @@ MainWindow::~MainWindow()
 
 void MainWindow::handleButton() {
     buttonHandler->draw(textEdit, graphWidget);
+}
+
+void MainWindow::handleCalculateButton() {
+    buttonHandler->calculatePath(requestEdit, graphWidget);
+}
+
+void MainWindow::importActionTrigger() {
+    textEdit->clear();
+    graphWidget->clear();
+    ifstream ifs1("street.txt");
+    ifstream ifs2("transport_type.txt");
+    if (! ifs1 || ! ifs2) return;
+    int n;
+    int w, allow;
+    ifs1 >> n;
+    ifs2 >> n;
+    QString text;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            ifs1 >> w;
+            ifs2 >> allow;
+            if (w == 0) continue;
+            graphWidget->addEdge(i, j, w, allow);
+            text.append(QString::number(i) + " " + QString::number(j) + " " + QString::number(w) + " " + QString::number(allow) + "\n");
+        }
+    }
+    textEdit->setText(text);
+    ifs1.close();
+    ifs2.close();
+    return;
+
+}
+
+void MainWindow::requestActionTrigger() {
+    requestEdit->clear();
+    QString text;
+    ifstream ifs("query.txt");
+    if (! ifs) return;
+    int allow, u, v;
+    ifs >> allow >> u >> v;
+    text.append(QString::number(allow) + " " + QString::number(u) + " " + QString::number(v));
+    ifs.close();
+    requestEdit->setText(text);
 }

@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QFormLayout>
 #include "buttonhandler.h"
+#include <fstream>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,12 +25,15 @@ public:
 
 private slots:
     void handleButton();
+    void handleCalculateButton();
+    void importActionTrigger();
+    void requestActionTrigger();
 private:
     /* Ui::MainWindow *ui; */
     GraphWidget *graphWidget;
     ButtonHandler* buttonHandler;
-    QPushButton *drawButton;
-    QTextEdit *textEdit;
+    QPushButton *drawButton, *calculateButton;
+    QTextEdit *textEdit, *requestEdit;
     void setupUi(QWidget *parent);
     void setupMenuBar(QWidget* parent);
     void setupLeftWidget(QWidget* parent);

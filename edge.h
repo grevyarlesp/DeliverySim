@@ -42,22 +42,6 @@
 
 class Node;
 class Edge : public QGraphicsItem {
-public:
-    Edge(int iSource, int iDest, Node *sourceNode, Node *destNode, Graph* graph, int w);
-    Node *sourceNode() const;
-    Node *destNode() const;
-    Graph* graph;
-    QString label;
-
-    void adjust();
-
-    enum { Type = UserType + 2 };
-    int type() const override { return Type; }
-
-protected:
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-
 private:
     Node *source, *dest;
     int iSource, iDest;
@@ -65,6 +49,24 @@ private:
     QPointF destPoint;
     qreal arrowSize = 10;
     static qreal height, Pi;
+
+public:
+    Edge(int iSource, int iDest, Node *sourceNode, Node *destNode, Graph* graph, int w);
+    Node *sourceNode() const;
+    Node *destNode() const;
+    Graph* graph;
+    QString label;
+    QColor color;
+
+    void adjust();
+
+    enum { Type = UserType + 2 };
+    int type() const override { return Type; }
+
+    void setColor(QColor q);
+protected:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 };
 
 #endif // EDGE_H

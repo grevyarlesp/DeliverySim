@@ -38,19 +38,33 @@
 
 /* Circular Dependecy; Foward declaration */
 class Node;
+class Edge;
 
 /* Specify that this class use its own signals and slots */
 class GraphWidget : public QGraphicsView
 {
     Q_OBJECT
+private:
+    int timerId = 0;
+    QMap<int, Node*> nodeMap;
+    Node *centerNode;
+    QWidget* par;
+    QVector< QVector<Edge*> > e;
+    QVector< QVector<int> > allow;
+
+    Graph* graph;
+    /* QGraphicsScene* scene; */
+
 public:
     explicit GraphWidget(QWidget *parent = nullptr);
     void itemMoved();
     Node* addNode(int num);
-    Graph* graph;
-    void addEdge(int u, int v, int w);
+    void addEdge(int u, int v, int w, int allow);
     void draw();
     void clear();
+    Graph* getGraph();
+    void resetColor();
+    Edge* getEdge(int i, int j);
 public slots: 
     void shuffle();
     void zoomIn();
@@ -64,13 +78,6 @@ protected:
 #endif
     void drawBackground(QPainter *painter, const QRectF &rect) override;
     void scaleView(qreal scaleFactor);
-private:
-    
-    int timerId = 0;
-    QMap<int, Node*> nodeMap;
-    Node *centerNode;
-    QWidget* par;
-    /* QGraphicsScene* scene; */
 };
 
 

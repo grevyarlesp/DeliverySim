@@ -1,6 +1,6 @@
 #include "node.h"
 
-qreal Node::minLength = 900;
+qreal Node::minLength = 2500;
 
 Node::Node(GraphWidget *graphWidget) : graph(graphWidget) {
     setFlag(ItemIsMovable);
