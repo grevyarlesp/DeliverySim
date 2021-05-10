@@ -216,7 +216,6 @@ void GraphWidget::resetColor() {
             }
         }
     }
-
 }
 
 Edge* GraphWidget::getEdge(int i, int j) {

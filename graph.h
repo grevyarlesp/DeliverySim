@@ -1,6 +1,5 @@
 #ifndef GRAPH_H
 #define GRAPH_H
-
 #include <QVector>
 #include <queue>
 
@@ -20,10 +19,8 @@ public:
     bool checkEdge(int u, int v);
     int getN();
     int getWeight(int u, int v);
-
     int getAllow(int u, int v);
-    /* This is unsafe and stupid. But I am using this because I am lazy af. */ 
-    QVector<QVector<QPair<int, QPair<int, int> > > >* adjencencyList();
+    const QVector<QVector<QPair<int, QPair<int, int> > > >* adjencencyList() const;
     
 };
 

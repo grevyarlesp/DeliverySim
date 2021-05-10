@@ -13,7 +13,7 @@ using namespace std;
 class ShortestPath
 {
 private:
-    QVector<QVector<QPair<int, QPair<int ,int> > > > *g; // Graph reprenstation as an adjencency list
+    const QVector<QVector<QPair<int, QPair<int ,int> > > > *g; // Graph presentation as an adjencency list
     Graph* graph;
     QVector<int> d, trace;
     priority_queue< pair<int, int> > q;

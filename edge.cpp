@@ -20,7 +20,7 @@ Node *Edge::sourceNode() const
     return source;
 }
 
-Node *Edge::destNode() const
+Node *Edge::destNode() const 
 {
     return dest;
 }

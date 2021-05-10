@@ -27,6 +27,7 @@ int ShortestPath::execute(int s, int t, int vehicle, bool recolor) {
         }
     }
     qDebug() << "Found" << trace[t];
+
     if (trace[t] != -1 && recolor)
         path(t, -1);
     return d[t];

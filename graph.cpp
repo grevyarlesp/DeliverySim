@@ -9,14 +9,12 @@ Graph::Graph(int max_size)
     n = max_size;
     g = QVector<QVector< QPair<int, QPair<int, int>>> >(n + 1);
     mg = QVector<QVector<int> >(n + 1, QVector<int>(n + 1, 0));
-    
     allow = QVector<QVector<int> >(n + 1, QVector<int>(n + 1, 0));
 }
 
 void Graph::clear() {
     mg.clear();
     g.clear();
-
     mx = 0;
     g = QVector<QVector< QPair<int, QPair<int, int>>> >(n + 1);
     mg = QVector<QVector<int> >(n + 1, QVector<int>(n + 1, 0));
@@ -50,7 +48,6 @@ int Graph::getWeight(int u, int v) {
     return mg[u][v];
 }
 
-
-QVector<QVector<QPair<int, QPair<int, int>> > >* Graph::adjencencyList() { 
+const QVector<QVector<QPair<int, QPair<int, int>> > >* Graph::adjencencyList() const { 
     return &g;
 }

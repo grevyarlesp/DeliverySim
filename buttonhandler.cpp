@@ -23,6 +23,7 @@ void ButtonHandler::draw(QTextEdit* textEdit, GraphWidget* graphWidget) {
         graphWidget->addEdge(a[0], a[1], a[2], a[3]);
     }
     /* graphWidget->addEdge(1, 2, 3); */
+
     graphWidget->draw();
 }
 
@@ -38,5 +39,7 @@ void ButtonHandler::calculatePath(QTextEdit* textEdit, GraphWidget* graphWidget)
     }
     ShortestPath sp(graphWidget->getGraph(), graphWidget); 
     qDebug() << "Calculator: " << a[1] << a[2] << a[0];
+
     sp.execute(a[1], a[2], a[0], true);
+
 }

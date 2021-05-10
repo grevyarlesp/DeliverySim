@@ -39,8 +39,8 @@
 #include <QPainter>
 #include "node.h"
 
-
 class Node;
+
 class Edge : public QGraphicsItem {
 private:
     Node *source, *dest;

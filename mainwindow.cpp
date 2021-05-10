@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 /* TODO: Create a new class, ButtonHandler to handle button clicks */
 /* TODO: Create a new class, ActionHandler to handle action */
 
